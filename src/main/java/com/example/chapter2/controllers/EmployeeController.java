@@ -1,6 +1,9 @@
 package com.example.chapter2.controllers;
 
 import com.example.chapter2.dto.EmployeeDTO;
+import com.example.chapter2.entities.EmployeeEntity;
+import com.example.chapter2.repositories.EmployeeRepository;
+import com.example.chapter2.services.EmployeeService;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -11,18 +14,25 @@ import java.util.List;
 @RequestMapping(path = "/employees")
 public class EmployeeController {
 
-    @GetMapping(path = "/employees/{employeeID}")
-    public EmployeeDTO getEmployeeByID(@PathVariable Long employeeID){
-        return new EmployeeDTO(employeeID, "Aabir" , "aabir.aashir@gmail.com" , 27 , LocalDate.of(2025,1,1), true);
+
+    private final EmployeeService employeeService;
+
+    public EmployeeController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
+    }
+
+    @GetMapping(path = "/{employeeID}")
+    public EmployeeDTO getEmployeeByID(@PathVariable(name = "employeeID") Long id) {
+        return employeeService.getEmployeeById(id);
     }
 
     @GetMapping
-    public String getAllEmployees(@RequestParam (required = false) Integer age){
-        return "Hi age" + age;
+    public List<EmployeeDTO> getAllEmployees(@RequestParam (required = false) Integer age){
+        return employeeService.getAllEmployees();
     }
 
     @PostMapping
-    public String getALL(){
-        return "Hi from Post";
+    public EmployeeDTO createNewEmployee(@RequestBody EmployeeDTO inputEmployee){
+        return employeeService.createNewEmployee(inputEmployee);
     }
 }

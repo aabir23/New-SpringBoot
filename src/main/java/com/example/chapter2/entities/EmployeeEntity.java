@@ -1,10 +1,16 @@
 package com.example.chapter2.entities;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDate;
 
 @Entity
+@Getter
+@Setter
+@EqualsAndHashCode
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "employees")
 public class EmployeeEntity {
 
