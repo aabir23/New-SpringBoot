@@ -20,6 +20,7 @@ public class EmployeeEntity {
     private String name;
     private String Email;
     private Integer age;
+    private String role;
     private LocalDate dateOfJoining;
     private Boolean isActive;
 
